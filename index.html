@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Social De Huayra</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e5e7eb; 
+            line-height: 1.6;
+        }
+
+        
+        .underline-title {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-color: #8b5cf6; 
+        }
+
+        
+        .btn-primary {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px #4f46e5;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px #4f46e5;
+        }
+
+        .btn-primary:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px #4f46e5;
+        }
+
+        
+        .error-message {
+            color: #ef4444; 
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            font-weight: 600;
+        }
+
+        
+        .input-error {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 1px #ef4444;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    
+    <header class="bg-indigo-600 p-4 shadow-lg sticky top-0 z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-white tracking-wider">
+                Registro de Usuario
+            </h1>
+            <nav class="space-x-4 flex items-center">
+                <a href="#" class="text-white hover:text-indigo-200 transition duration-150 font-medium">Inicio</a>
+                <a href="#" class="text-white hover:text-indigo-200 transition duration-150 font-medium">Ayuda</a>
+                
+                <button class="bg-pink-500 text-white py-2 px-4 rounded-lg font-bold hover:bg-pink-600 transition duration-150">
+                    Acceder
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    
+    <main class="container mx-auto p-4 md:p-8 flex-grow">
+        <form id="registrationForm" class="bg-white p-6 md:p-10 rounded-xl shadow-2xl max-w-4xl mx-auto">
+            
+            
+            <section class="mb-8 p-4 border-b border-gray-200">
+                <h2 class="text-2xl font-bold mb-4 text-indigo-700 underline-title">
+                    1. Información Personal
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    
+                    <div>
+                        <label for="name" class="block text-gray-700 font-semibold mb-2">
+                            <span class="text-xl font-extrabold text-black">Nombre:</span> <span class="text-sm italic text-red-500">*Requerido*</span>
+                        </label>
+                        <input type="text" id="name" name="name" required 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                               placeholder="Introduce tu nombre">
+                        <p id="nameError" class="error-message"></p>
+                    </div>
+
+                    
+                    <div>
+                        <label for="lastName" class="block text-gray-700 font-semibold mb-2">
+                            <span class="text-xl font-extrabold text-black">Apellido:</span> <span class="text-sm italic text-red-500">*Requerido*</span>
+                        </label>
+                        <input type="text" id="lastName" name="lastName" required 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                               placeholder="Introduce tu apellido">
+                        <p id="lastNameError" class="error-message"></p>
+                    </div>
+
+                    
+                    <div>
+                        <label for="dob" class="block text-gray-700 font-semibold mb-2">
+                            <span class="text-xl font-extrabold text-black">Fecha de Nacimiento:</span> <span class="text-sm italic text-red-500">*Requerido*</span>
+                        </label>
+                        <input type="date" id="dob" name="dob" required 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <p id="dobError" class="error-message"></p>
+                    </div>
+
+                    
+                    <div class="md:col-span-2 pt-2">
+                        <p class="block text-gray-700 font-semibold mb-3">
+                            <span class="text-xl font-extrabold text-black">Género:</span> <span class="text-sm italic text-red-500">*Requerido*</span>
+                        </p>
+                        <div class="flex flex-wrap gap-6">
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="gender" value="masculino" required 
+                                       class="form-radio h-5 w-5 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-2 text-gray-900 font-bold">Masculino</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="gender" value="femenino" 
+                                       class="form-radio h-5 w-5 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-2 text-gray-900 font-bold">Femenino</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" name="gender" value="otro" 
+                                       class="form-radio h-5 w-5 text-indigo-600 focus:ring-indigo-500">
+                                <span class="ml-2 text-gray-900 font-bold">Otro</span>
+                            </label>
+                        </div>
+                        <p id="genderError" class="error-message"></p>
+                    </div>
+                </div>
+            </section>
+
+            
+            <section class="mb-8 p-4 border-b border-gray-200">
+                <h2 class="text-2xl font-bold mb-4 text-indigo-700 underline-title">
+                    2. Información de Contacto
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    
+                    <div>
+                        <label for="email" class="block text-gray-700 font-semibold mb-2">
+                            <span class="text-xl font-extrabold text-black">Correo Electrónico:</span> <span class="text-sm italic text-red-500">*Requerido*</span>
+                        </label>
+                        <input type="email" id="email" name="email" required 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                               placeholder="ejemplo@dominio.com">
+                        <p id="emailError" class="error-message"></p>
+                    </div>
+
+                    
+                    <div>
+                        <label for="phone" class="block text-gray-700 font-semibold mb-2">
+                            <span class="text-xl font-extrabold text-black">Número de Teléfono:</span> <span class="text-sm italic text-red-500">*Requerido*</span>
+                        </label>
+                        <input type="tel" id="phone" name="phone" required 
+                               pattern="[0-9]{10}" 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                               placeholder="10 dígitos sin espacios ni guiones">
+                        <p id="phoneError" class="error-message"></p>
+                    </div>
+                </div>
+
+                
+                <div class="mt-6">
+                    <label for="address" class="block text-gray-700 font-semibold mb-2">
+                        <span class="text-xl font-extrabold text-black">Dirección:</span>
+                    </label>
+                    <textarea id="address" name="address" rows="3" 
+                              class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                              placeholder="Introduce tu dirección completa"></textarea>
+                </div>
+            </section>
+
+           
+            <section class="mb-8 p-4 border-b border-gray-200">
+                <h2 class="text-2xl font-bold mb-4 text-indigo-700 underline-title">
+                    3. Información de Cuenta
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="username" class="block text-gray-700 font-semibold mb-2">
+                            <span class="text-xl font-extrabold text-black">Nombre de Usuario:</span> <span class="text-sm italic text-red-500">*Requerido*</span>
+                        </label>
+                        <input type="text" id="username" name="username" required 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                               placeholder="Mínimo 5 caracteres">
+                        <p id="usernameError" class="error-message"></p>
+                    </div>
+                    <div>
+                        <label for="password" class="block text-gray-700 font-semibold mb-2">
+                            <span class="text-xl font-extrabold text-black">Contraseña:</span> <span class="text-sm italic text-red-500">*Requerido*</span>
+                        </label>
+                        <input type="password" id="password" name="password" required 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                               placeholder="Mínimo 8 caracteres">
+                        <p id="passwordError" class="error-message"></p>
+                    </div>
+
+                    
+                    <div class="md:col-span-2">
+                        <label for="confirmPassword" class="block text-gray-700 font-semibold mb-2">
+                            <span class="text-xl font-extrabold text-black">Confirmación de Contraseña:</span> <span class="text-sm italic text-red-500">*Requerido*</span>
+                        </label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                               placeholder="Repite tu contraseña">
+                        <p id="confirmPasswordError" class="error-message"></p>
+                    </div>
+                </div>
+            </section>
+            <section class="p-4">
+                <h2 class="text-2xl font-bold mb-4 text-indigo-700 underline-title">
+                    4. Preferencias
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6 items-start">
+                    <div>
+                        <label for="favoriteColor" class="block text-gray-700 font-semibold mb-2">
+                            <span class="text-xl font-extrabold text-black">Color Favorito:</span>
+                        </label>
+                        <select id="favoriteColor" name="favoriteColor" 
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+                            <option value="rojo">Rojo</option>
+                            <option value="azul">Azul</option>
+                            <option value="verde">Verde</option>
+                            <option value="amarillo">Amarillo</option>
+                        </select>
+                    </div>
+                    <div class="mt-2 md:mt-8 flex items-center">
+                        <input type="checkbox" id="terms" name="terms" required 
+                               class="form-checkbox h-5 w-5 text-indigo-600 focus:ring-indigo-500 rounded">
+                        <label for="terms" class="ml-3 text-gray-700 font-bold cursor-pointer">
+                            Acepto los <span class="underline hover:text-indigo-600">Términos y Condiciones</span> <span class="text-sm italic text-red-500">*</span>
+                        </label>
+                        <p id="termsError" class="error-message"></p>
+                    </div>
+                </div>
+            </section>
+            <div class="mt-10 text-center">
+                <button type="submit" 
+                        class="btn-primary bg-indigo-500 text-white font-extrabold py-3 px-12 rounded-full text-xl hover:bg-indigo-700 uppercase tracking-widest">
+                    Registrarse
+                </button>
+            </div>
+            
+        </form>
+    </main>
+    <footer class="bg-gray-800 text-white p-4 mt-8">
+        <div class="container mx-auto text-center text-sm">
+            <p>&copy; 2025 Red Social Ficticia. Todos los derechos reservados.</p>
+            <p>Política de Privacidad | Aviso Legal</p>
+        </div>
+    </footer>
+    <script>
+        const form = document.getElementById('registrationForm');
+        function displayError(id, message, inputId) {
+            const errorElement = document.getElementById(id);
+            const inputElement = document.getElementById(inputId);
+            
+            errorElement.textContent = message;
+            if (message) {
+                inputElement.classList.add('input-error');
+            } else {
+                inputElement.classList.remove('input-error');
+            }
+        }
+        function validateForm() {
+            let isValid = true;
+            const name = document.getElementById('name').value.trim();
+            if (name.length < 2) {
+                displayError('nameError', 'El nombre debe tener al menos 2 caracteres.', 'name');
+                isValid = false;
+            } else {
+                displayError('nameError', '', 'name');
+            }
+
+            const lastName = document.getElementById('lastName').value.trim();
+            if (lastName.length < 2) {
+                displayError('lastNameError', 'El apellido debe tener al menos 2 caracteres.', 'lastName');
+                isValid = false;
+            } else {
+                displayError('lastNameError', '', 'lastName');
+            }
+
+            const dob = document.getElementById('dob').value;
+            if (!dob) {
+                displayError('dobError', 'La fecha de nacimiento es obligatoria.', 'dob');
+                isValid = false;
+            } else {
+                displayError('dobError', '', 'dob');
+            }
+
+            const gender = form.querySelector('input[name="gender"]:checked');
+            if (!gender) {
+                document.getElementById('genderError').textContent = 'Debes seleccionar un género.';
+                isValid = false;
+            } else {
+                document.getElementById('genderError').textContent = '';
+            }
+            const email = document.getElementById('email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                displayError('emailError', 'Introduce una dirección de correo válida.', 'email');
+                isValid = false;
+            } else {
+                displayError('emailError', '', 'email');
+            }
+
+            const phone = document.getElementById('phone').value.trim();
+            const phoneRegex = /^[0-9]{10}$/; 
+            if (!phoneRegex.test(phone)) {
+                displayError('phoneError', 'El teléfono debe ser de 10 dígitos (solo números).', 'phone');
+                isValid = false;
+            } else {
+                displayError('phoneError', '', 'phone');
+            }
+
+            const username = document.getElementById('username').value.trim();
+            if (username.length < 5) {
+                displayError('usernameError', 'El nombre de usuario debe tener al menos 5 caracteres.', 'username');
+                isValid = false;
+            } else {
+                displayError('usernameError', '', 'username');
+            }
+
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password.length < 8) {
+                displayError('passwordError', 'La contraseña debe tener al menos 8 caracteres.', 'password');
+                isValid = false;
+            } else {
+                displayError('passwordError', '', 'password');
+            }
+            
+            if (confirmPassword !== password || confirmPassword.length < 8) {
+                 displayError('confirmPasswordError', 'Las contraseñas no coinciden o son demasiado cortas.', 'confirmPassword');
+                isValid = false;
+            } else {
+                displayError('confirmPasswordError', '', 'confirmPassword');
+            }
+            const terms = document.getElementById('terms').checked;
+            if (!terms) {
+                document.getElementById('termsError').textContent = 'Debes aceptar los términos y condiciones.';
+                isValid = false;
+            } else {
+                document.getElementById('termsError').textContent = '';
+            }
+
+            return isValid;
+        }
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            if (validateForm()) {
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+                
+                const successMessage = "¡Registro exitoso! Los datos se han recopilado correctamente.";
+                console.log(successMessage, data);
+                const submitButton = form.querySelector('button[type="submit"]');
+                submitButton.textContent = "¡Registrado!";
+                submitButton.classList.remove('bg-indigo-500');
+                submitButton.classList.add('bg-green-500');
+                
+                setTimeout(() => {
+                    submitButton.textContent = "Registrarse";
+                    submitButton.classList.remove('bg-green-500');
+                    submitButton.classList.add('bg-indigo-500');
+                    form.reset();
+                }, 3000);
+            }
+        });
+        const inputs = form.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('input', (e) => {
+                const id = e.target.id;
+                const errorId = id + 'Error';
+                if (document.getElementById(errorId)) {
+     
+                    displayError(errorId, '', id); 
+                }
+            });
+        });
+    </script>
+</body>
+</html>
