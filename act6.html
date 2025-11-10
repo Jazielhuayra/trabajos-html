@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal | Tarea Web</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+        }
+
+        header {
+            background-color: #9422ff;
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .links-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .links-section a {
+            display: block;
+            width: 45%; 
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #000;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .links-section a:hover {
+            background-color: #000000;
+        }
+
+        #conversor-page, #registro-page {
+            display: none;
+            text-align: left;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        input[type="number"], input[type="text"] {
+            padding: 8px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 95%;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #9422ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #9422ff;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Página Principal de Funcionalidades</h1>
+    </header>
+
+    <div class="container">
+        <h2>Selecciona una opción:</h2>
+        
+        <div class="links-section">
+            <a href="#" id="link-conversor">
+                Conversor de Unidades (mm, cm, m)
+            </a>
+
+            <a href="#" id="link-registro">
+                Registro de Empresas
+            </a>
+        </div>
+
+        <hr>
+
+        <div id="conversor-page">
+            <h3>Conversor de Unidades</h3>
+            <p>Convierte entre Milímetros (mm), Centímetros (cm) y Metros (m).</p>
+            
+            <label for="valor">Valor:</label>
+            <input type="number" id="valor" value="100" min="0">
+
+            <label for="unidad-origen">Desde:</label>
+            <select id="unidad-origen">
+                <option value="mm">Milímetros (mm)</option>
+                <option value="cm" selected>Centímetros (cm)</option>
+                <option value="m">Metros (m)</option>
+            </select>
+
+            <label for="unidad-destino">A:</label>
+            <select id="unidad-destino">
+                <option value="mm">Milímetros (mm)</option>
+                <option value="cm">Centímetros (cm)</option>
+                <option value="m" selected>Metros (m)</option>
+            </select>
+
+            <button onclick="realizarConversion()">Convertir</button>
+
+            <p>Resultado: <span id="resultado-conversion"></span></p>
+
+            <button onclick="mostrarPrincipal()">⬅️ Volver a Principal</button>
+        </div>
+
+        <div id="registro-page">
+            <h3>Registro de Empresas</h3>
+
+            <form id="form-empresa">
+                <label for="folio">Folio:</label>
+                <input type="text" id="folio" required>
+
+                <label for="nombre-empresa">Nombre:</label>
+                <input type="text" id="nombre-empresa" required>
+
+                <label for="domicilio">Domicilio:</label>
+                <input type="text" id="domicilio" required>
+
+                <button type="submit">Registrar Empresa</button>
+            </form>
+            
+            <h4>Lista de Empresas Registradas</h4>
+            <table id="lista-empresas" border="1" width="100%" style="border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th>Folio</th>
+                        <th>Nombre</th>
+                        <th>Domicilio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+
+            <button onclick="mostrarPrincipal()">⬅️ Volver a Principal</button>
+        </div>
+    </div>
+
+    <script>
+        const principal = document.querySelector('.links-section');
+        const conversorPage = document.getElementById('conversor-page');
+        const registroPage = document.getElementById('registro-page');
+        const linkConversor = document.getElementById('link-conversor');
+        const linkRegistro = document.getElementById('link-registro');
+
+        function mostrarPrincipal() {
+            principal.style.display = 'flex';
+            conversorPage.style.display = 'none';
+            registroPage.style.display = 'none';
+        }
+
+        function mostrarSeccion(seccion) {
+            principal.style.display = 'none';
+            conversorPage.style.display = 'none';
+            registroPage.style.display = 'none';
+            seccion.style.display = 'block';
+        }
+
+        linkConversor.addEventListener('click', (e) => {
+            e.preventDefault();
+            mostrarSeccion(conversorPage);
+        });
+
+        linkRegistro.addEventListener('click', (e) => {
+            e.preventDefault();
+            mostrarSeccion(registroPage);
+        });
+
+        
+        function realizarConversion() {
+            const valor = parseFloat(document.getElementById('valor').value);
+            const origen = document.getElementById('unidad-origen').value;
+            const destino = document.getElementById('unidad-destino').value;
+            let valorEnMetros = 0;
+            let resultadoFinal = 0;
+
+            if (isNaN(valor)) {
+                document.getElementById('resultado-conversion').textContent = "Por favor, ingrese un número válido.";
+                return;
+            }
+            switch (origen) {
+                case 'mm':
+                    valorEnMetros = valor / 1000;
+                    break;
+                case 'cm':
+                    valorEnMetros = valor / 100;
+                    break;
+                case 'm':
+                    valorEnMetros = valor;
+                    break;
+            }
+
+            switch (destino) {
+                case 'mm':
+                    resultadoFinal = valorEnMetros * 1000;
+                    break;
+                case 'cm':
+                    resultadoFinal = valorEnMetros * 100;
+                    break;
+                case 'm':
+                    resultadoFinal = valorEnMetros;
+                    break;
+            }
+
+            document.getElementById('resultado-conversion').textContent = 
+                `${valor} ${origen.toUpperCase()} es igual a ${resultadoFinal.toFixed(4)} ${destino.toUpperCase()}`;
+        }
+
+        const listaEmpresas = [];
+
+        document.getElementById('form-empresa').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const folio = document.getElementById('folio').value.trim();
+            const nombre = document.getElementById('nombre-empresa').value.trim();
+            const domicilio = document.getElementById('domicilio').value.trim();
+
+            if (folio && nombre && domicilio) {
+                const nuevaEmpresa = { folio, nombre, domicilio };
+                listaEmpresas.push(nuevaEmpresa);
+                
+                agregarFilaATabla(nuevaEmpresa);
+                
+
+                document.getElementById('form-empresa').reset();
+            } else {
+                alert("Por favor, complete todos los campos.");
+            }
+        });
+
+        function agregarFilaATabla(empresa) {
+            const tbody = document.getElementById('lista-empresas').getElementsByTagName('tbody')[0];
+            const nuevaFila = tbody.insertRow();
+            
+            let celdaFolio = nuevaFila.insertCell();
+            celdaFolio.textContent = empresa.folio;
+
+            let celdaNombre = nuevaFila.insertCell();
+            celdaNombre.textContent = empresa.nombre;
+         
+            let celdaDomicilio = nuevaFila.insertCell();
+            celdaDomicilio.textContent = empresa.domicilio;
+        }
+
+    </script>
+
+</body>
+</html>
