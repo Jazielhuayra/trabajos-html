@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tienda de Huayra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="tel"], input[type="password"], input[type="date"], select {
+            width: calc(100% - 12px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="checkbox"], input[type="radio"] {
+            margin-right: 10px;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            display: none;
+        }
+        button {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        #pedido-libros {
+            margin-top: 30px;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+        #resultado {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-align: right;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>📚 Tienda de Libros Huayra</h1>
+    <form id="registroForm">
+        
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <span class="error" id="errorNombre">El nombre es obligatorio.</span>
+        </div>
+
+        <div class="form-group">
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" name="apellidos" required>
+            <span class="error" id="errorApellidos">Los apellidos son obligatorios.</span>
+        </div>
+
+        <div class="form-group">
+            <label for="telefono">Teléfono (xxx xx xx xx):</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="Ej: 667 11 22 33" required>
+            <span class="error" id="errorTelefono">Formato de teléfono incorrecto (Ej: 667 11 22 33).</span>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Contraseña (mínimo 8 caracteres):</label>
+            <input type="password" id="password" name="password" required>
+            <span class="error" id="errorPassword">La contraseña debe tener al menos 8 caracteres.</span>
+        </div>
+
+        <div class="form-group">
+            <label>Áreas de Interés:</label><br>
+            <input type="checkbox" id="prog" name="intereses" value="programacion"> 
+            <label for="prog" style="display: inline;">Programación</label><br>
+            <input type="checkbox" id="dis" name="intereses" value="diseño"> 
+            <label for="dis" style="display: inline;">Diseño</label><br>
+            <input type="checkbox" id="cie" name="intereses" value="ciencias"> 
+            <label for="cie" style="display: inline;">Ciencias</label>
+        </div>
+
+        <div class="form-group">
+            <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+            <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+            <span class="error" id="errorFecha">La fecha de nacimiento es obligatoria.</span>
+        </div>
+
+        <div class="form-group">
+            <input type="checkbox" id="aceptoTerminos" name="aceptoTerminos" required>
+            <label for="aceptoTerminos" style="display: inline;">Acepto los términos de protección de datos.</label>
+            <span class="error" id="errorTerminos">Debe aceptar los términos.</span>
+        </div>
+
+        <button type="submit" id="btnAgregar">Agregar Cuenta</button>
+
+    </form>
+
+    <div id="pedido-libros">
+        <h2>🛒 Selección de Libros y Pedido</h2>
+        <form id="calculoForm">
+            
+            <div class="form-group">
+                <label for="selectLibro">Seleccionar Libro:</label>
+                <select id="selectLibro" name="selectLibro" required>
+                    <option value="" disabled selected>-- Selecciona un libro --</option>
+                    <option value="15.50">JavaScript Avanzado - 15.50</option>
+                    <option value="24.99">Diseño UI/UX Esencial - 24.99</option>
+                    <option value="19.75">Física Cuántica para Todos - 19.75</option>
+                    <option value="12.00">Introducción a HTML5 y CSS3 - 12.00</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="precioBase">Precio (Sin IVA):</label>
+                <input type="text" id="precioBase" name="precioBase" placeholder="Ej: 19.99" pattern="^\d+(\.\d{1,2})?$" required>
+                <span class="error" id="errorPrecio">Solo números con hasta 2 decimales.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="iva">Tipo de IVA:</label>
+                <select id="iva" name="iva" required>
+                    <option value="0.10">IVA Reducido (10%)</option>
+                    <option value="0.21" selected>IVA Normal (21%)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Precio Final (IVA Incluido):</label>
+                <div id="resultado">0.00 €</div> 
+            </div>
+
+            <button type="button" id="btnCalcular">Calcular Pedido</button>
+            
+        </form>
+    </div>
+</div>
+
+<script>
+document.getElementById('registroForm').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    
+    if (validarRegistro()) {
+        alert('✅ Cuenta creada con éxito. ¡Bienvenido!');
+    } else {
+        alert('❌ Por favor, corrige los errores del formulario.');
+    }
+});
+
+function validarRegistro() {
+    let esValido = true;
+
+    
+    const nombre = document.getElementById('nombre');
+    const errorNombre = document.getElementById('errorNombre');
+    if (nombre.value.trim() === '') {
+        errorNombre.style.display = 'block';
+        esValido = false;
+    } else {
+        errorNombre.style.display = 'none';
+    }
+
+    
+    const apellidos = document.getElementById('apellidos');
+    const errorApellidos = document.getElementById('errorApellidos');
+    if (apellidos.value.trim() === '') {
+        errorApellidos.style.display = 'block';
+        esValido = false;
+    } else {
+        errorApellidos.style.display = 'none';
+    }
+
+    
+    const telefono = document.getElementById('telefono');
+    const errorTelefono = document.getElementById('errorTelefono');
+    const regexTelefono = /^\d{3}\s?\d{2}\s?\d{2}\s?\d{2}$/; 
+    if (!regexTelefono.test(telefono.value.trim())) {
+        errorTelefono.style.display = 'block';
+        esValido = false;
+    } else {
+        errorTelefono.style.display = 'none';
+    }
+
+    
+    const password = document.getElementById('password');
+    const errorPassword = document.getElementById('errorPassword');
+    if (password.value.length < 8) {
+        errorPassword.style.display = 'block';
+        esValido = false;
+    } else {
+        errorPassword.style.display = 'none';
+    }
+
+    
+    const fechaNacimiento = document.getElementById('fechaNacimiento');
+    const errorFecha = document.getElementById('errorFecha');
+    if (fechaNacimiento.value === '') {
+        errorFecha.style.display = 'block';
+        esValido = false;
+    } else {
+        errorFecha.style.display = 'none';
+    }
+
+    
+    const aceptoTerminos = document.getElementById('aceptoTerminos');
+    const errorTerminos = document.getElementById('errorTerminos');
+    if (!aceptoTerminos.checked) {
+        errorTerminos.style.display = 'block';
+        esValido = false;
+    } else {
+        errorTerminos.style.display = 'none';
+    }
+
+    return esValido;
+}
+
+
+document.getElementById('selectLibro').addEventListener('change', function() {
+    
+    const precioSeleccionado = this.value; 
+    document.getElementById('precioBase').value = precioSeleccionado;
+    
+    calcularPrecioFinal(); 
+});
+
+document.getElementById('btnCalcular').addEventListener('click', function() {
+    
+    calcularPrecioFinal(); 
+});
+
+function calcularPrecioFinal() {
+    const precioInput = document.getElementById('precioBase');
+    const ivaSelect = document.getElementById('iva');
+    const resultadoDiv = document.getElementById('resultado');
+    const errorPrecio = document.getElementById('errorPrecio');
+    
+    
+    const regexPrecio = /^\d+(\.\d{1,2})?$/;
+    if (!regexPrecio.test(precioInput.value)) {
+        errorPrecio.style.display = 'block';
+        resultadoDiv.textContent = 'ERROR';
+        return; 
+    } else {
+        errorPrecio.style.display = 'none';
+    }
+
+    
+    const precioBase = parseFloat(precioInput.value);
+    const ivaTasa = parseFloat(ivaSelect.value); 
+
+    
+    if (isNaN(precioBase)) {
+        resultadoDiv.textContent = 'Ingrese un precio válido';
+        return;
+    }
+
+    
+    const precioConIVA = precioBase * (1 + ivaTasa);
+
+   
+    const resultadoFormateado = precioConIVA.toFixed(2);
+
+
+    resultadoDiv.textContent = resultadoFormateado + ' €';
+}
+</script>
+
+</body>
+</html>
